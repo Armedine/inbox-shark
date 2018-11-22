@@ -1,0 +1,3 @@
+run GIT BASH in this folder with "devnotes.txt"
+
+failed to merge, unrelated histories: https://stackoverflow.com/questions/37937984/git-refusing-to-merge-unrelated-histories-on-rebase
