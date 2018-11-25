@@ -3,17 +3,18 @@
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
+var passport = require('passport');
+var Auth0Strategy = require('passport-auth0');
+var session = require('express-session');
 
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+const app = express();
+app.use(express.static(path.join(__dirname, 'public')))
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+app.get('/', (req, res) => res.render('pages/index'))
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 // auth0
-
-var session = require('express-session');
 
 // config express-session
 var sess = {
@@ -28,9 +29,6 @@ if (app.get('env') === 'production') {
 }
 
 app.use(session(sess));
-
-var passport = require('passport');
-var Auth0Strategy = require('passport-auth0');
 
 // Configure Passport to use Auth0
 var strategy = new Auth0Strategy(
