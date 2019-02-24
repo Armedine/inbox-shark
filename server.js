@@ -1,3 +1,4 @@
+var emailHelper = require('./public/js/email.js');
 const nodemailer = require('nodemailer');
 
 app.post('/preview', function(req, res, next) {
@@ -8,7 +9,6 @@ app.post('/preview', function(req, res, next) {
       pass: 'busa1234'
     }
   })
-}
   const mailOptions = {
     from: `${req.body.email}`,
     to: 'test-email@gmail.com',

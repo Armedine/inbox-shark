@@ -1,11 +1,10 @@
 // default
-
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
+var session = require('express-session');
 var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
-var session = require('express-session');
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')))
@@ -19,8 +18,6 @@ app.get('/preview', (req, res) => res.render('pages/preview'))
 // -----
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-// auth0
-
 // config express-session
 var sess = {
   secret: 'Ys_qt5-pPMxMQIHxGQbk84XZvCjpuEayfJOo9LOhamV9Ak9hOx4nrDYLbd4_PtNj',
@@ -32,8 +29,6 @@ var sess = {
 if (app.get('env') === 'production') {
   sess.cookie.secure = true; // serve secure cookies, requires https
 }
-
-app.use(session(sess));
 
 // Configure Passport to use Auth0
 var strategy = new Auth0Strategy(
@@ -56,3 +51,5 @@ passport.use(strategy);
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(session(sess))
